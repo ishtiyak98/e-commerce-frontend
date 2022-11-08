@@ -1,0 +1,11 @@
+.sidebar{
+    color: white;
+    position: absolute;
+    top: 20;
+    left: -100%;
+    transition: all .8s;
+}
+
+.sidebar_active{
+    left: 0;
+}
