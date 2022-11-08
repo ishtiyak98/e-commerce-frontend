@@ -2,8 +2,10 @@ import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   return (
     <div className="space-y-4 rounded hover:ring-1 hover:ring-[#E84309] transition-transform ease-in-out duration-300 hover:shadow-xl p-5">
       <div>
@@ -40,7 +42,10 @@ const ProductCard = ({ product }) => {
           </p>
         </div>
         <div className="flex justify-between items-center">
-          <div className="bg-[#E84309] px-4 py-2 rounded text-white text-sm hover:cursor-pointer hover:bg-[#ba3200]">
+          <div
+            className="bg-[#E84309] px-4 py-2 rounded text-white text-sm hover:cursor-pointer hover:bg-[#ba3200]"
+            onClick={() => navigate(`/product/${product.id}`)}
+          >
             More Details
           </div>
           <div className="flex text-[#E84309]">

@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import { IoLogoBitcoin } from "react-icons/io";
 import { BiMenu } from "react-icons/bi";
 import styles from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center px-2 py-3 lg:px-24 lg:py-4 bg-[#E84309] text-white">
-        <div className="flex items-center space-x-1">
+      <div className="fixed w-full flex justify-between items-center px-2 h-[10%] lg:px-24  bg-[#E84309] text-white shadow-lg z-30">
+        <Link to={"/"} className="flex items-center space-x-1">
           <IoLogoBitcoin className="text-[35px] lg:text-[50px]"></IoLogoBitcoin>
           <p className="text-xl lg:text-3xl font-bold">BitBuy.com</p>
-        </div>
+        </Link>
         <div className="space-x-12 hidden lg:block font-medium">
-          <span>Home</span>
-          <span>Track My Order</span>
-          <span>Customer Care</span>
-          <span>Login</span>
+          <Link to={"/"}>Home</Link>
+          <Link to={"/"}>Track My Order</Link>
+          <Link to={"/"}>Customer Care</Link>
+          <Link to={"/"}>Login</Link>
         </div>
         <div
           className="hover:cursor-pointer"
@@ -28,12 +29,20 @@ const Navbar = () => {
       <div
         className={`${styles.sidebar} ${
           sidebar && styles.sidebar_active
-        } w-[320px] h-[89vh] bg-slate-600 px-20`}
+        } w-[320px] h-[90vh] bg-[#E84309] px-20`}
       >
-        <span className="block text-left py-2 my-2 ">Home</span>
-        <span className="block text-left py-2 my-2 ">Track My Order</span>
-        <span className="block text-left py-2 my-2 ">Customer Care</span>
-        <span className="block text-left py-2 my-2 ">Login</span>
+        <Link to={"/"} className="block text-left py-2 my-2 ">
+          Home
+        </Link>
+        <Link to={"/"} className="block text-left py-2 my-2 ">
+          Track My Order
+        </Link>
+        <Link to={"/"} className="block text-left py-2 my-2 ">
+          Customer Care
+        </Link>
+        <Link to={"/"} className="block text-left py-2 my-2 ">
+          Login
+        </Link>
       </div>
     </>
   );

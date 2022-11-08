@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <Navbar></Navbar>
       <div>
-        <img className="object-cover w-full" src={coverImg} alt="" />
+        <img className="object-cover w-full pt-[70px] bg-[#E84309]" src={coverImg} alt="" />
       </div>
       <div className="py-4 lg:py-12">
         <img className="object-cover w-full" src={coverBottom} alt="" />
