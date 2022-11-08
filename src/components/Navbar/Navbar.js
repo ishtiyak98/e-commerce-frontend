@@ -7,7 +7,7 @@ const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center px-2 py-3 lg:px-24 lg:py-4 bg-orange-500 text-white">
+      <div className="flex justify-between items-center px-2 py-3 lg:px-24 lg:py-4 bg-[#E84309] text-white">
         <div className="flex items-center space-x-1">
           <IoLogoBitcoin className="text-[35px] lg:text-[50px]"></IoLogoBitcoin>
           <p className="text-xl lg:text-3xl font-bold">BitBuy.com</p>
@@ -28,9 +28,12 @@ const Navbar = () => {
       <div
         className={`${styles.sidebar} ${
           sidebar && styles.sidebar_active
-        } w-[320px] h-[89vh] bg-slate-600`}
+        } w-[320px] h-[89vh] bg-slate-600 px-20`}
       >
-        asc
+        <span className="block text-left py-2 my-2 ">Home</span>
+        <span className="block text-left py-2 my-2 ">Track My Order</span>
+        <span className="block text-left py-2 my-2 ">Customer Care</span>
+        <span className="block text-left py-2 my-2 ">Login</span>
       </div>
     </>
   );
