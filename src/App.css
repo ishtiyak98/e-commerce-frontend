@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.dotClass{
+  display: flex !important;
+}
+
+.dotClass li{
+  margin: 0px 8px;
+}
+.dotClass li:hover{
+  cursor: pointer;
+}

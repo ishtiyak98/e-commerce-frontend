@@ -5,12 +5,33 @@ import { AiFillStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
 import { BsShareFill } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState({});
-
+  const settings = {
+    customPaging: function (i) {
+      return (
+        <img
+          className="w-[100px] flex flex-row object-cover h-[80px]"
+          src={`${productDetails.images[i]}`}
+          alt={""}
+        />
+      );
+    },
+    autoplay: true,
+    autoplaySpeed: 2000,
+    dots: true,
+    dotsClass: "dotClass slick-thumb",
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
@@ -23,17 +44,25 @@ const ProductDetails = () => {
     <>
       <Navbar></Navbar>
       <div className="pt-[120px] px-2 lg:px-24">
-        <div className="flex flex-col lg:flex-row items-center space-y-8 lg:space-x-10">
-          <div>
-            <img
-              className="rounded-md w-full object-cover h-[300px] lg:h-[450px]"
-              src={productDetails.thumbnail}
-              alt=""
-            />
+        <div className="flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-10">
+          <div className="w-[400px]">
+            <Slider {...settings}>
+              {productDetails?.images?.map((image) => (
+                <div className="mb-3">
+                  <img
+                    className="rounded-md object-cover h-[300px] lg:h-[450px]"
+                    src={image}
+                    alt=""
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
-          <div className="text-gray-800 space-y-3 lg:space-y-4 px-4">
-            <h1 className="text-3xl lg:text-5xl font-bold">{productDetails?.title}</h1>
-            <div className="flex justify-between items-center">
+          <div className="text-gray-800 px-4">
+            <h1 className="text-3xl lg:text-5xl font-bold mb-4 lg:mb-6">
+              {productDetails?.title}
+            </h1>
+            <div className="flex justify-between items-center mb-2">
               <div className="flex items-center text-[#E84309] space-x-2">
                 {productDetails.rating > 0 && (
                   <span className="flex">
@@ -63,11 +92,18 @@ const ProductDetails = () => {
               </div>
             </div>
             <div>
-              <p className="text-sm lg:text-xl">{productDetails.description}</p>
+              <p className="text-sm lg:text-xl mb-">
+                {productDetails.description}
+              </p>
             </div>
             <div>
-            <p className="text-sm lg:text-xl"><span className="font-bold">Brand:</span> {productDetails.brand}</p>
-            <p className="text-sm lg:text-xl"><span className="font-bold">In Stock:</span> {productDetails.stock}</p>
+              <p className="text-sm lg:text-xl">
+                <span className="font-bold">Brand:</span> {productDetails.brand}
+              </p>
+              <p className="text-sm lg:text-xl">
+                <span className="font-bold">In Stock:</span>{" "}
+                {productDetails.stock}
+              </p>
             </div>
             <div className="">
               <p className="text-xl">
@@ -76,7 +112,7 @@ const ProductDetails = () => {
                   ${productDetails.price}
                 </span>
               </p>
-              <p className="text-2xl">
+              <p className="text-2xl mb-4">
                 Discounted Price:{" "}
                 <span className="font-bold text-[#E84309]">
                   $
