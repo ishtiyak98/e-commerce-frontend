@@ -7,7 +7,7 @@ import AllProducts from "../../components/AllProducts/AllProducts";
 const Home = () => {
   return (
     <>
-      <Navbar></Navbar>
+      
       <div>
         <img className="object-cover w-full pt-[70px] bg-[#E84309]" src={coverImg} alt="" />
       </div>

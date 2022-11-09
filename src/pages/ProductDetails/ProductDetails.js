@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import { AiFillStar } from "react-icons/ai";
@@ -9,10 +9,18 @@ import { BsFillBookmarkFill } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { DataContext } from "../../App";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [productDetails, setProductDetails] = useState({});
+  const [quantity, setQuantity] = useState(0);
+  const { cartDetails, setCartDetails } = useContext(DataContext);
+
+  const quantityChange = (e) => {
+    setQuantity(parseInt(e.target.value));
+  };
+
   const settings = {
     customPaging: function (i) {
       return (
@@ -32,13 +40,23 @@ const ProductDetails = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
   useEffect(() => {
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProductDetails(data));
   }, [id]);
 
-  console.log(productDetails);
+  const handleForm = (e) => {
+    e.preventDefault();
+    console.log("quantity-added");
+    const itemQuantity = quantity;
+    const productID = productDetails.id;
+    const cart = { productID, itemQuantity };
+    setCartDetails([...cartDetails, cart]);
+  };
+
+  console.log(cartDetails);
 
   return (
     <>
@@ -92,7 +110,7 @@ const ProductDetails = () => {
               </div>
             </div>
             <div>
-              <p className="text-sm lg:text-xl mb-">
+              <p className="text-sm lg:text-xl mb-2 max-w-[550px]">
                 {productDetails.description}
               </p>
             </div>
@@ -127,8 +145,43 @@ const ProductDetails = () => {
                 </span>
               </p>
             </div>
-            <div className="bg-[#E84309] inline-block px-8 py-4 rounded text-white text-lg hover:cursor-pointer hover:bg-[#ba3200]">
-              Add to Cart
+            <div className="">
+              <form onSubmit={handleForm}>
+                <p className="text-xl mr-3 inline">Quantity: </p>
+                <input
+                  name="plusButton"
+                  className="w-[30px] text-center outline-none inline mr-3 px-2 py-1 bg-gray-300 text-[#E84309] hover:cursor-pointer"
+                  onClick={() => setQuantity(quantity - 1)}
+                  disabled={quantity === 0}
+                  value={"-"}
+                  readOnly
+                ></input>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={quantityChange}
+                  min="0"
+                  max="5"
+                  disabled={quantity === 5}
+                  className="w-[50px] mb-4 px-2 py-1 text-center outline-none ring-1 ring-[#E84309]"
+                />
+                <input
+                  name="minusButton"
+                  className="w-[30px] text-center outline-none inline ml-3 px-2 py-1 bg-gray-300 text-[#E84309] hover:cursor-pointer"
+                  onClick={() => setQuantity(quantity + 1)}
+                  disabled={quantity === 5}
+                  value="+"
+                  readOnly
+                ></input>
+
+                <input
+                  name="asc"
+                  type="submit"
+                  value={"Add to Cart"}
+                  disabled={quantity === 0}
+                  className="bg-[#E84309] block px-8 py-4 rounded text-white text-lg hover:cursor-pointer hover:bg-[#ba3200]"
+                ></input>
+              </form>
             </div>
           </div>
         </div>
