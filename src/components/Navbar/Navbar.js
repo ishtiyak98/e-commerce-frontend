@@ -6,10 +6,10 @@ import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../App";
 
-const Navbar = ({ cartQuantity }) => {
+const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const { cartDetails } = useContext(DataContext);
-  const cartNumber = cartDetails.reduce(function(prev, cur) {
+  const cartNumber = cartDetails.reduce((prev, cur) => {
     return prev + cur.itemQuantity;
   }, 0);
 
@@ -46,20 +46,43 @@ const Navbar = ({ cartQuantity }) => {
       <div
         className={`${styles.sidebar} ${
           sidebar && styles.sidebar_active
-        } w-[320px] h-[90vh] bg-[#E84309] px-20 z-10`}
+        } w-[320px] lg:w-[420px] h-[90vh] bg-[#E84309]  z-10`}
       >
-        <Link to={"/"} className="block text-left py-2 my-2 ">
-          Home
-        </Link>
-        <Link to={"/"} className="block text-left py-2 my-2 ">
-          Track My Order
-        </Link>
-        <Link to={"/"} className="block text-left py-2 my-2 ">
-          Customer Care
-        </Link>
-        <Link to={"/"} className="block text-left py-2 my-2 ">
-          Login
-        </Link>
+        <div className="px-20">
+          <Link to={"/"} className="block text-left py-2 my-2">
+            Home
+          </Link>
+          <Link to={"/"} className="block text-left py-2 my-2">
+            Track My Order
+          </Link>
+          <Link to={"/"} className="block text-left py-2 my-2">
+            Customer Care
+          </Link>
+          <Link to={"/"} className="block text-left py-2 my-2">
+            Login
+          </Link>
+        </div>
+
+        <div className="mt-12 text-gray-800 bg-white rounded px-4 py-4 mx-4">
+          <h2 className="text-center mb-2 font-bold">
+            My Cart Items ({cartDetails.length})
+          </h2>
+          <div className="w-full h-[0.1em] bg-gray-800 mb-4"></div>
+          {cartDetails.map((cartItem) => (
+            <div className="font-medium flex justify-between">
+              <h4>{cartItem.productName.slice(0, 8)}</h4>
+              <h4>Quantity: {cartItem.itemQuantity}</h4>
+              <h4>Price : ${cartItem.productPrice}</h4>
+            </div>
+          ))}
+          <div className="w-full h-[0.1em] bg-gray-800 mt-4"></div>
+          <p className="text-xl text-center font-medium mt-2">
+            Total : $
+            {cartDetails.reduce(function (prev, cur) {
+              return prev + cur.productPrice;
+            }, 0)}
+          </p>
+        </div>
       </div>
     </>
   );

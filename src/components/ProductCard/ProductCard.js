@@ -2,9 +2,10 @@ import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsStarHalf } from "react-icons/bs";
+import { AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, handleDelete }) => {
   const navigate = useNavigate();
   return (
     <div className="space-y-4 rounded hover:ring-1 hover:ring-[#E84309] transition-transform ease-in-out duration-300 hover:shadow-xl p-5">
@@ -40,6 +41,12 @@ const ProductCard = ({ product }) => {
               ({product.discountPercentage}%)
             </span>
           </p>
+        </div>
+        <div
+          className="flex justify-end text-[#E84309] cursor-pointer"
+          onClick={() => handleDelete(product.id)}
+        >
+          <AiFillDelete></AiFillDelete>
         </div>
         <div className="flex justify-between items-center">
           <div

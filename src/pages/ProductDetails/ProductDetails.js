@@ -52,7 +52,9 @@ const ProductDetails = () => {
     console.log("quantity-added");
     const itemQuantity = quantity;
     const productID = productDetails.id;
-    const cart = { productID, itemQuantity };
+    const productName = productDetails.title;
+    const productPrice = itemQuantity * Math.round(productDetails.price - productDetails.price * (parseFloat(productDetails.discountPercentage) / 100))   
+    const cart = { productID, productName, productPrice,itemQuantity};
     setCartDetails([...cartDetails, cart]);
   };
 
@@ -63,7 +65,7 @@ const ProductDetails = () => {
       <Navbar></Navbar>
       <div className="pt-[120px] px-2 lg:px-24">
         <div className="flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-10">
-          <div className="w-[400px]">
+          <div className="w-[320px] lg:w-[400px]">
             <Slider {...settings}>
               {productDetails?.images?.map((image) => (
                 <div className="mb-3">
