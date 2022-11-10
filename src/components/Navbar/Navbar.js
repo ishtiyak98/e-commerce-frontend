@@ -27,7 +27,10 @@ const Navbar = () => {
           <Link to={"/"}>Login</Link>
         </div>
         <div className="flex items-center space-x-6">
-          <div className="relative cursor-pointer">
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setSidebar(!sidebar)}
+          >
             <AiOutlineShoppingCart size={"1.5em"}></AiOutlineShoppingCart>
             {cartNumber > 0 && (
               <p className="absolute top-[-12px] left-4 bg-white text-[#E84309] px-2 py-1 rounded-full text-xs w-fit h-fit font-bold">
@@ -46,7 +49,7 @@ const Navbar = () => {
       <div
         className={`${styles.sidebar} ${
           sidebar && styles.sidebar_active
-        } w-[320px] lg:w-[420px] h-[90vh] bg-[#E84309]  z-10`}
+        } w-[320px] lg:w-[420px] h-[90vh] bg-[#E84309] z-10`}
       >
         <div className="px-20">
           <Link to={"/"} className="block text-left py-2 my-2">
